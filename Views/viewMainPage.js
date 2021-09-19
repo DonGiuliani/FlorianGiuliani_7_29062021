@@ -155,30 +155,12 @@ class ViewMainPage extends AbstractView {
         mainSearchBar.addEventListener("input", function(event) {
             if(event.target.value.length >= 3) {
                 let enteredValue = event.target.value;
-                //this.renderFilteredRecipesList(recipes, enteredValue);
                 this.renderFilteredRecipesListAlternative(recipes, enteredValue)
             } else if(event.target.value.length == 0) {
                 let enteredValue = event.target.value;
-                //this.renderFilteredRecipesList(recipes, enteredValue);
                 this.renderFilteredRecipesListAlternative(recipes, enteredValue)
             }
         }.bind(this));
-    }
-
-    renderFilteredRecipesList(recipes, enteredValue) {
-        const filteredRecipes = recipes.filter((recipe) => {
-            return recipe.name.toLowerCase().includes(enteredValue) ||
-            recipe.description.toLowerCase().includes(enteredValue) ||
-            recipe.ingredients.some(arrayIngredients => arrayIngredients.ingredient.toLowerCase().includes(enteredValue));
-        });
-
-        let recipesListDOM = document.getElementById(`recipes__list`);
-        recipesListDOM.innerHTML = `${this.renderRecipes(filteredRecipes)}`;
-        this.refreshFiltersWithFilteredRecipes(filteredRecipes);
-
-        if(filteredRecipes.length == 0) {
-            recipesListDOM.innerHTML = "Aucune recette ne correspond à votre critère… vous pouvez chercher 'tarte aux pommes' , 'poisson' , etc.";
-        }
     }
 
     renderFilteredRecipesListAlternative(recipes, enteredValue) {
