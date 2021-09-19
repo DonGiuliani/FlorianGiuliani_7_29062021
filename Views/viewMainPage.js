@@ -155,12 +155,12 @@ class ViewMainPage extends AbstractView {
         mainSearchBar.addEventListener("input", function(event) {
             if(event.target.value.length >= 3) {
                 let enteredValue = event.target.value;
-                this.renderFilteredRecipesList(recipes, enteredValue);
-                //this.renderFilteredRecipesListAlternative(recipes, enteredValue)
+                //this.renderFilteredRecipesList(recipes, enteredValue);
+                this.renderFilteredRecipesListAlternative(recipes, enteredValue)
             } else if(event.target.value.length == 0) {
                 let enteredValue = event.target.value;
-                this.renderFilteredRecipesList(recipes, enteredValue);
-                //this.renderFilteredRecipesListAlternative(recipes, enteredValue)
+                //this.renderFilteredRecipesList(recipes, enteredValue);
+                this.renderFilteredRecipesListAlternative(recipes, enteredValue)
             }
         }.bind(this));
     }
