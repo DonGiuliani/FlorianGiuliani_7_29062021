@@ -54,13 +54,14 @@ li {
 }
 
 .filter:hover {
-    width: fit-content;
+    width: auto;
     height: auto;
     z-index: 2;
 }
 
 #filter__ingredients, #filter__appliances, #filter__ustensils {
     margin: 0.5em;
+    text-align: center;
 }
 
 .filter__search__bar {
@@ -99,7 +100,7 @@ nav > ul:hover .list {
 }
 
 #list__ingredients, #list__appliances, #list__ustensils {
-    text-align: center;
+    text-align: left;
 }
 
 .fa-times-circle {

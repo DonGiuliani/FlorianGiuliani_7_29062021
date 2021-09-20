@@ -63,7 +63,7 @@ class ViewMainPage extends AbstractView {
         `;
 
         this.display(content);
-        this.getValueFromMainSearchBar();
+        this.initResearchFromMainSearchBar();
         this.transformFilterIntoSearchBar();
         this.getValueFromFiltersSearchBar(ingredients, appliances, ustensils);
         this.initClickOnFilter(ingredients, appliances, ustensils);
@@ -149,18 +149,23 @@ class ViewMainPage extends AbstractView {
     /*--------------------------------------------------------------------------------------------------------
     Récupère la valeur entrée par l'utilisateur dans la barre de recherche principale et y ajoute un évènement
     --------------------------------------------------------------------------------------------------------*/
-    getValueFromMainSearchBar() {
+    initResearchFromMainSearchBar() {
         let mainSearchBar = document.getElementById("search__input");
 
         mainSearchBar.addEventListener("input", function(event) {
             if(event.target.value.length >= 3) {
-                let enteredValue = event.target.value;
+                let enteredValue = event.target.value.toLowerCase();
                 this.renderFilteredRecipesList(recipes, enteredValue);
+                this.getValueFromMainSearchBar(enteredValue);
             } else if(event.target.value.length == 0) {
                 let enteredValue = event.target.value;
                 this.renderFilteredRecipesList(recipes, enteredValue);
             }
         }.bind(this));
+    }
+
+    getValueFromMainSearchBar(enteredValue) {
+        console.log(enteredValue);
     }
 
     renderFilteredRecipesList(recipes, enteredValue) {
@@ -272,19 +277,19 @@ class ViewMainPage extends AbstractView {
     getValueFromFiltersSearchBar(ingredients, appliances, ustensils) {        
         let filterIngredientsSearchBar = document.getElementById("search__ingredient");
         filterIngredientsSearchBar.addEventListener("input", function(event) {
-            let enteredValue = event.target.value;
+            let enteredValue = event.target.value.toLowerCase();
             this.getFilteredIngredientsFilter(ingredients, enteredValue);
         }.bind(this));
 
         let filterAppliancesSearchBar = document.getElementById("search__appliance");
         filterAppliancesSearchBar.addEventListener("input", function(event) {
-            let enteredValue = event.target.value;
+            let enteredValue = event.target.value.toLowerCase();
             this.getFilteredAppliancesFilter(appliances, enteredValue);
         }.bind(this));
 
         let filterUstensilsSearchBar = document.getElementById("search__ustensil");
         filterUstensilsSearchBar.addEventListener("input", function(event) {
-            let enteredValue = event.target.value;
+            let enteredValue = event.target.value.toLowerCase();
             this.getFilteredUstensilsFilter(ustensils, enteredValue);
         }.bind(this));
     }
