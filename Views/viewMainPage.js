@@ -154,18 +154,16 @@ class ViewMainPage extends AbstractView {
 
         mainSearchBar.addEventListener("input", function(event) {
             if(event.target.value.length >= 3) {
-                let enteredValue = event.target.value.toLowerCase();
-                this.renderFilteredRecipesList(recipes, enteredValue);
-                this.getValueFromMainSearchBar(enteredValue);
+                this.renderRecipesByFilters(recipes, this.filtersArray);
             } else if(event.target.value.length == 0) {
-                let enteredValue = event.target.value;
-                this.renderFilteredRecipesList(recipes, enteredValue);
+                this.renderRecipesByFilters(recipes, this.filtersArray);
             }
         }.bind(this));
     }
 
-    getValueFromMainSearchBar(enteredValue) {
-        console.log(enteredValue);
+    getValueFromMainSearchBar() {
+        let searchInput = document.getElementById("search__input");
+        return searchInput.value;
     }
 
     renderFilteredRecipesList(recipes, enteredValue) {
@@ -175,8 +173,9 @@ class ViewMainPage extends AbstractView {
             recipe.ingredients.some(arrayIngredients => arrayIngredients.ingredient.toLowerCase().includes(enteredValue));
         });
 
+        //this.renderRecipesByFilters(recipes, )
         let recipesListDOM = document.getElementById(`recipes__list`);
-        recipesListDOM.innerHTML = `${this.renderRecipes(filteredRecipes)}`;
+        recipesListDOM.innerHTML = this.renderRecipes(filteredRecipes);
         this.refreshFiltersWithFilteredRecipes(filteredRecipes);
 
         if(filteredRecipes.length == 0) {
@@ -373,7 +372,7 @@ class ViewMainPage extends AbstractView {
         }
 
         let recipeListDOM = document.getElementById("recipes__list");
-        recipeListDOM.innerHTML = this.renderRecipes(recipeList);
+        this.renderFilteredRecipesList(recipeList, this.getValueFromMainSearchBar());
 
         if(recipeList.length == 0) {
             recipeListDOM.innerHTML = "Aucune recette ne correspond à votre critère… vous pouvez chercher 'tarte aux pommes' , 'poisson' , etc.";
@@ -474,7 +473,7 @@ class ViewMainPage extends AbstractView {
         let currentCrossTag = document.getElementById(`cross__tag__${ustensil}`);
         currentCrossTag.addEventListener("click", () => {
             newTag.remove();
-            this.removeTagFromFiltersArray(`${ustensil}`);
+            this.removeTagFromFiltersArray(ustensil);
         });
     }
 
